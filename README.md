@@ -39,6 +39,8 @@ This serverless application handles inspection processes through:
 - MySQL database server
 - AWS account with Lambda access
 - Wassenger business account for WhatsApp API
+  - You'll need an API key and Device ID from your Wassenger account
+  - Device ID can be found in the Wassenger dashboard under "Devices" section
 - OpenAI API access
 
 ## Installation & Setup
@@ -60,8 +62,9 @@ This serverless application handles inspection processes through:
    DB_PASS=your_mysql_password
    DB_NAME=your_mysql_database_name
    WASSENGER_API_KEY=your_wassenger_api_key
+   WASSENGER_DEVICE_ID=your_wassenger_device_id
    OPENAI_API_KEY=your_openai_api_key
-   ADMIN_CONTACT=admin_whatsapp_number
+   ADMIN_CONTACT=+1234567890  # Admin's WhatsApp number in international format (with + prefix)
    ```
 
 ## Deployment to AWS Lambda
@@ -85,9 +88,11 @@ This serverless application handles inspection processes through:
 
 4. Configure Wassenger webhook:
    - Log into your Wassenger account
+   - Go to Devices section and note your Device ID
    - Go to Webhooks section
    - Add a new webhook with the API Gateway endpoint URL
    - Select the message event to trigger the webhook
+   - Set a secret key for added security (optional)
 
 ## Setting up the Cron Jobs
 

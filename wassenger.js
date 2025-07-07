@@ -6,6 +6,7 @@ const db = require('./db');
 
 // Wassenger API configuration
 const WASSENGER_API_KEY = process.env.WASSENGER_API_KEY;
+const WASSENGER_DEVICE_ID = process.env.WASSENGER_DEVICE_ID;
 const WASSENGER_API_URL = 'https://api.wassenger.com/v1';
 
 // Axios instance with auth header
@@ -26,7 +27,8 @@ async function sendMessage(recipient, message) {
   try {
     const response = await wassengerApi.post('/messages', {
       phone: recipient,
-      message: message
+      message: message,
+      device: WASSENGER_DEVICE_ID
     });
     
     console.log('Message sent successfully:', response.data.id);
@@ -50,7 +52,8 @@ async function sendMediaMessage(recipient, mediaUrl, caption = '') {
       media: {
         url: mediaUrl
       },
-      caption: caption
+      caption: caption,
+      device: WASSENGER_DEVICE_ID
     });
     
     console.log('Media message sent successfully:', response.data.id);

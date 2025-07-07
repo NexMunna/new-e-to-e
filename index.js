@@ -212,8 +212,12 @@ exports.dailyAdminNotification = async (event, context) => {
       const message = `ALERT: ${pendingLeads.length} leads pending for more than 48 hours:\n\n` + 
         pendingLeads.map(lead => `- ${lead.client_name}: ${lead.description} (since ${lead.created_at})`).join('\n');
       
-      // Send to admin (could be email or WhatsApp)
+      // Send to admin via WhatsApp (must be in international format with + prefix)
       const adminContact = process.env.ADMIN_CONTACT;
+      if (!adminContact) {
+        console.error('Admin contact number not configured in environment variables');
+        throw new Error('ADMIN_CONTACT environment variable is required');
+      }
       await wassenger.sendMessage(adminContact, message);
     }
     
@@ -242,8 +246,12 @@ exports.completedJobReport = async (event, context) => {
       // Generate job report
       const report = await utils.generateJobReport(job.contract_id);
       
-      // Send report notification
+      // Send report notification to admin's WhatsApp
       const adminContact = process.env.ADMIN_CONTACT;
+      if (!adminContact) {
+        console.error('Admin contact number not configured in environment variables');
+        throw new Error('ADMIN_CONTACT environment variable is required');
+      }
       await wassenger.sendMessage(
         adminContact, 
         `Job #${job.contract_id} for ${job.client_name} has been completed.\n` +
