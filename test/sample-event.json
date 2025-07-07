@@ -1,0 +1,3 @@
+{
+  "body": "{\"event\":\"message\",\"data\":{\"id\":\"gBEGVYdXNPQQAgkM_pFecHoHW6w\",\"timestamp\":1657123456,\"fromNumber\":\"+1234567890\",\"fromName\":\"John Smith\",\"type\":\"text\",\"body\":\"Show me my job today\",\"ack\":\"pending\",\"isForwarded\":false,\"isFromGroup\":false}}"
+}
